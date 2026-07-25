@@ -75,10 +75,11 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 
 ## 3. Contenu et i18n
 
-- Bilingue FR/EN, **FR par défaut**, bascule persistée dans `localStorage`
-  (clé `am-lang`), pas de préfixe d'URL actuellement.
-- Source de vérité du texte : l'objet `translations` de `src/i18n.js`
-  (69 clés par langue, parité vérifiée automatiquement).
+- Bilingue FR/EN, **FR par défaut**. Depuis la migration Nuxt : **URLs
+  préfixées** (FR sur `/`, EN sur `/en/`) et préférence persistée dans un
+  **cookie** `am-lang` (plus le `localStorage` d'avant).
+- Source de vérité du texte : **`i18n/locales/fr.json` et `en.json`**
+  (77 clés par langue, parité vérifiée).
 - Noms propres non traduits (Epitech, Sween, TROA, noms de projets).
 
 ## 4. Audit copywriting/RH (25 juillet 2026) — corrections à appliquer
@@ -125,8 +126,8 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 
 ### État d'avancement des corrections
 - ✅ FR `sweenBody` réécrit (recentré sur Arnaud + fait Sunbiose/code).
-- ⏳ FR `kicker` : « Portfolio — prototype » → « Portfolio — 2026 » **non appliqué**
-  (la chaîne existe dans les deux langues, édition à faire ciblée par langue).
+- ✅ `kicker` : « Portfolio — prototype » → « Portfolio — 2026 », appliqué dans
+  les deux locales.
 - ⏳ Toutes les corrections EN du tableau ci-dessus : **non appliquées**.
 - ⏳ Réécritures de fond : **en attente des chiffres d'Arnaud**.
 
@@ -136,7 +137,10 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 - Production : https://portefolio-nu-six.vercel.app
 - Commande : `npx vercel deploy --prod --yes` (CLI déjà authentifié).
 - ⚠️ La version en ligne **date d'avant** les pages dédiées, le curseur,
-  locomotive-scroll et le glassmorphisme.
+  locomotive-scroll, le glassmorphisme **et la migration Nuxt**.
+- Le site est désormais **rendu côté serveur** (Nitro), plus un simple dossier
+  statique : `nuxt build` produit `.output/`. Alternative si un hébergement
+  statique est préféré : `nuxt generate`.
 
 ## 6. Emplacement et dépôt
 
@@ -165,7 +169,8 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 - Dépendances installées : nuxt, vue, @nuxtjs/i18n, three, locomotive-scroll.
 - **`i18n/locales/fr.json` + `en.json`** générés **programmatiquement** depuis
   `src/i18n.js` — 69 clés chacun, **parité vérifiée**. Zéro transcription
-  manuelle, donc zéro risque d'invention.
+  manuelle, donc zéro risque d'invention. Portés à **77 clés** ensuite
+  (8 clés `meta*` de titre / description de page, cf. §7).
 - **`app/utils/scene.js`** : scène Three.js portée. Les scènes 3D sont
   **inchangées** ; seul le câblage DOM a été paramétré :
   - `export function createScene(canvas)` au lieu d'un `querySelector('#webgl')` ;
@@ -176,35 +181,54 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
   - Validé : compile via esbuild, API conforme.
 - CSS copié dans `app/assets/css/main.css` et `bento.css`.
 
+### ✅ Migration terminée (25 juillet 2026)
+- `nuxt.config.ts` : module `@nuxtjs/i18n`, CSS globaux, `defaultLocale: 'fr'`,
+  `strategy: 'prefix_except_default'`, `detectBrowserLanguage` avec cookie
+  `am-lang`, `baseUrl` = URL Vercel.
+  ⚠️ **`compilation: { strictMessage: false, escapeHtml: false }` est
+  obligatoire** : les textes portent du HTML inline (`<strong>`, lien Sunbiose,
+  `&nbsp;`) et le compilateur de messages refuse le fichier sans cette option.
+- `app/app.vue` : loader + curseur + header + `<NuxtPage />`, `useLocaleHead()`
+  pour les `hreflang`, watcher qui pose `body.sober`.
+- Composants : `AppLoader.vue`, `CustomCursor.vue`, `SiteHeader.vue`
+  (nav par ancres sur l'accueil, `NuxtLink` sur les pages de poste ; bouton
+  sobriété seulement sur l'accueil), `ThreeScene.client.vue`.
+- `app/plugins/locomotive.client.js` : v5, `destroy()` + re-init sur
+  `page:finish`, délégation de clic pour les liens `data-scroll-to`.
+- Pages : `index.vue`, `epitech.vue`, `sween.vue`, `troa.vue`. Contenu repris
+  littéralement ; `v-html` pour toute chaîne portant du HTML ou `&nbsp;`.
+- État partagé du mode sobriété : `app/composables/useSober.js`.
+  Spotlight des cellules bento : `app/composables/useCellSpotlight.js`.
+- Vanilla supprimé : `index.html`, `epitech.html`, `sween.html`, `troa.html`,
+  `src/`, `vite.config.js` (⚠️ `vite.config.js` faisait renvoyer **426 Upgrade
+  Required** au serveur de dev Nuxt tant qu'il était présent).
+
+### Pièges rencontrés, à ne pas réintroduire
+- **`@` dans un message i18n** : vue-i18n l'interprète comme un lien de message.
+  `status` est écrit `Montpellier — Direction pédagogique {'@'} Epitech`.
+- **Ref d'un composant `.client`** : non résolu au `onMounted`, d'où le
+  `await nextTick()` dans `ThreeScene.client.vue` avant `createScene()`.
+
+### Vérifié dans le navigateur (dev + build)
+Scènes 3D et mapping caméra/scroll, reveals au scroll, smooth scroll Lenis,
+navigation par ancres, switch FR/EN (`/` ↔ `/en/`), loader au chargement
+uniquement, bascule sobriété, **aucune fuite de contexte WebGL après
+4 allers-retours accueil ↔ page de poste**. `nuxt build` passe.
+Le chunk Three.js (**135 kB gzip**) n'est chargé que sur l'accueil ; les pages
+de poste tirent le framework Nuxt (**108 kB gzip**) + ~3 kB — contre 14 kB en
+vanilla. **C'est le coût de la SPA, à arbitrer** vu le discours éco-conception.
+
 ### ⏳ Reste à faire
-1. `nuxt.config.ts` : modules `@nuxtjs/i18n`, CSS globaux, config i18n
-   (`defaultLocale: 'fr'`, `strategy: 'prefix_except_default'`, fichiers de
-   locales, `detectBrowserLanguage` avec cookie).
-2. `app/app.vue` : layout global (loader, curseur, header, `<NuxtPage />`).
-3. Composants à porter depuis `src/transitions.js` : `AppLoader.vue`
-   (1250 ms, **au chargement de page uniquement**), `CustomCursor.vue`
-   (anneau + easing + grossissement au hover), `SiteHeader.vue`
-   (glass au scroll + switch de langue + bouton sobriété).
-4. `app/plugins/locomotive.client.js` : locomotive-scroll v5
-   (⚠️ **ne pas repasser en v4** : elle hijack le scroll et casserait la caméra
-   qui lit `window.scrollY`). Penser à `scroll.destroy()` + re-init sur
-   changement de route.
-5. Pages : `app/pages/index.vue` (+ `ThreeScene.client.vue`),
-   `epitech.vue`, `sween.vue`, `troa.vue` (bento).
-   Contenu à reprendre **littéralement** depuis `index.html`, `epitech.html`,
-   `sween.html`, `troa.html` (encore présents à la racine).
-6. Reveals au scroll : la classe `.is-inview` de locomotive + styles `.reveal`
-   et `.cell` déjà présents dans le CSS.
-7. Vérifier dans le navigateur, puis **supprimer** `index.html`, `epitech.html`,
-   `sween.html`, `troa.html`, `src/`, `vite.config.js`.
-8. Redéployer sur Vercel (le lien `.vercel` a été déplacé, le projet reste
-   `am-engineering/portefolio`). Nuxt nécessite un preset Vercel — vérifier
-   que le build passe (`nuxt build` produit `.output/`).
+1. Redéployer sur Vercel (projet `am-engineering/portefolio`). Le build produit
+   `.output/` — vérifier que le preset Vercel est bien détecté, et répercuter
+   le changement d'URLs (`/epitech.html` → `/epitech`, EN sur `/en/`) :
+   **redirections 301 à prévoir**.
+2. Faire valider les **8 clés `meta*`** ajoutées : le FR reprend mot pour mot les
+   `<title>` / `<meta description>` des anciens fichiers HTML, mais **les
+   descriptions EN sont des chaînes neuves**, écrites avec la terminologie du
+   tableau §4 (« Academic Director », « sustainable web design »). À relire.
 
 ### ⚠️ Corrections copywriting encore en attente (cf. §4)
-- FR `kicker` « Portfolio — prototype » → « Portfolio — 2026 » : **non appliqué**
-  (la chaîne existait dans les deux langues, l'édition ciblée reste à faire —
-  maintenant simple, les langues sont dans deux fichiers JSON séparés).
 - Toutes les corrections de langue EN du tableau §4 : **non appliquées**.
 - Réécritures de fond : **bloquées** en attente des chiffres d'Arnaud
   (questions §1 et §4).

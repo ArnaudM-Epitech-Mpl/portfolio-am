@@ -2,9 +2,9 @@
   "navContact": "Contact",
   "sobriety": "mode sobriété",
   "sobrietyTitle": "Clin d'œil à l'éco-conception : coupe le rendu 3D",
-  "kicker": "Portfolio — prototype",
+  "kicker": "Portfolio — 2026",
   "lede": "De la création d'expériences web primées à l'énergie solaire partagée, jusqu'à la transmission. Trois mondes, une même exigence&nbsp;: le soin du détail.",
-  "status": "Montpellier — Direction pédagogique @ Epitech",
+  "status": "Montpellier — Direction pédagogique {'@'} Epitech",
   "sumEpitech": "Pédagogie",
   "sumEpitechDesc": "Direction pédagogique — Epitech Montpellier",
   "sumSween": "Énergie",
@@ -67,5 +67,13 @@
   "troTag3": "Éco-conception web",
   "troTag4": "Intégration de direction artistique",
   "troTag5": "Travail en agence, multi-clients",
-  "troPageLegacy": "Le niveau d'exigence d'une agence primée sur le détail — et la conviction qu'une contrainte, ici l'éco-conception, est un moteur créatif plutôt qu'un frein. Ce site en est le prolongement direct."
+  "troPageLegacy": "Le niveau d'exigence d'une agence primée sur le détail — et la conviction qu'une contrainte, ici l'éco-conception, est un moteur créatif plutôt qu'un frein. Ce site en est le prolongement direct.",
+  "metaHomeTitle": "Arnaud Michel — Portfolio",
+  "metaHomeDesc": "Arnaud Michel — pédagogie, énergie, expériences web créatives.",
+  "metaEpitechTitle": "Epitech Montpellier — Arnaud Michel",
+  "metaEpitechDesc": "Direction pédagogique à Epitech Montpellier — pilotage des cursus, accompagnement des équipes, pédagogie à l'ère de l'IA.",
+  "metaSweenTitle": "Sween — Arnaud Michel",
+  "metaSweenDesc": "Développement chez Sween — pilotage temps réel de l'autoconsommation collective solaire, technologie brevetée.",
+  "metaTroaTitle": "TROA — Arnaud Michel",
+  "metaTroaDesc": "Développeur créatif chez TROA, agence digitale primée à Montpellier — expériences web sur mesure et éco-conçues."
 }

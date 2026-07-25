@@ -122,9 +122,12 @@ body.sober #webgl { opacity: 0.12; }
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-.lang-switch button {
+/* liens depuis la migration Nuxt (URLs préfixées /en/), boutons avant */
+.lang-switch button,
+.lang-switch a {
   background: transparent;
   border: none;
+  text-decoration: none;
   color: var(--ink-dim);
   font: inherit;
   font-size: 0.72rem;
@@ -134,8 +137,10 @@ body.sober #webgl { opacity: 0.12; }
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.lang-switch button:hover { color: var(--ink); }
-.lang-switch button.is-active {
+.lang-switch button:hover,
+.lang-switch a:hover { color: var(--ink); }
+.lang-switch button.is-active,
+.lang-switch a.is-active {
   background: var(--ink);
   color: #050505;
 }

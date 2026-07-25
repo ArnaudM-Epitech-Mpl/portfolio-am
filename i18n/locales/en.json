@@ -2,9 +2,9 @@
   "navContact": "Contact",
   "sobriety": "eco mode",
   "sobrietyTitle": "A nod to eco-design: turns off the 3D render",
-  "kicker": "Portfolio — prototype",
+  "kicker": "Portfolio — 2026",
   "lede": "From award-winning web experiences to shared solar energy, all the way to teaching. Three worlds, one constant: care for detail.",
-  "status": "Montpellier — Head of Education @ Epitech",
+  "status": "Montpellier — Head of Education {'@'} Epitech",
   "sumEpitech": "Teaching",
   "sumEpitechDesc": "Head of Education — Epitech Montpellier",
   "sumSween": "Energy",
@@ -67,5 +67,13 @@
   "troTag3": "Web eco-design",
   "troTag4": "Art direction implementation",
   "troTag5": "Agency work, multi-client",
-  "troPageLegacy": "An award-winning agency's standard for detail — and the conviction that a constraint, here eco-design, is a creative driver rather than a brake. This very site is its direct continuation."
+  "troPageLegacy": "An award-winning agency's standard for detail — and the conviction that a constraint, here eco-design, is a creative driver rather than a brake. This very site is its direct continuation.",
+  "metaHomeTitle": "Arnaud Michel — Portfolio",
+  "metaHomeDesc": "Arnaud Michel — education, energy, creative web experiences.",
+  "metaEpitechTitle": "Epitech Montpellier — Arnaud Michel",
+  "metaEpitechDesc": "Academic Director at Epitech Montpellier — curriculum strategy, coaching the teaching teams, education in the age of AI.",
+  "metaSweenTitle": "Sween — Arnaud Michel",
+  "metaSweenDesc": "Software engineering at Sween — real-time control of collective solar self-consumption, patented technology.",
+  "metaTroaTitle": "TROA — Arnaud Michel",
+  "metaTroaDesc": "Creative developer at TROA, an award-winning digital agency in Montpellier — bespoke, sustainably designed web experiences."
 }
