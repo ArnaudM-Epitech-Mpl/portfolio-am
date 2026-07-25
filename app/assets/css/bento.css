@@ -1,0 +1,273 @@
+/* Bento layout for the dedicated role pages. Loaded on top of style.css. */
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: clamp(7rem, 14vh, 10rem) 6vw 6rem;
+}
+
+/* ---------- back link ---------- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.2s, gap 0.25s ease;
+}
+.back-link:hover {
+  color: var(--ink);
+  gap: 1rem;
+}
+
+/* ---------- page head ---------- */
+.page-head {
+  margin: 2.2rem 0 clamp(2.5rem, 5vh, 4rem);
+}
+.page-head .eyebrow {
+  display: inline-block;
+  color: var(--ink-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.page-head h1 {
+  margin-top: 1.4rem;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.page-head h1 .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+}
+.page-head .page-role {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- bento grid ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cell {
+  position: relative;
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  overflow: hidden;
+  /* animation d'entrée : pilotée par .is-inview (locomotive-scroll) */
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.75, 0.2, 1),
+    border-color 0.35s ease, background 0.35s ease;
+  will-change: opacity, transform;
+}
+.cell.is-inview {
+  opacity: 1;
+  transform: none;
+}
+/* cascade : chaque cellule entre légèrement après la précédente */
+.cell:nth-child(1) { transition-delay: 0.02s; }
+.cell:nth-child(2) { transition-delay: 0.08s; }
+.cell:nth-child(3) { transition-delay: 0.14s; }
+.cell:nth-child(4) { transition-delay: 0.2s; }
+.cell:nth-child(5) { transition-delay: 0.26s; }
+.cell:nth-child(6) { transition-delay: 0.32s; }
+.cell:nth-child(7) { transition-delay: 0.38s; }
+.cell:nth-child(8) { transition-delay: 0.44s; }
+.cell:nth-child(9) { transition-delay: 0.5s; }
+
+/* spotlight discret qui suit la souris dans la cellule */
+.cell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.07),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.cell:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.045);
+}
+.cell:hover::before { opacity: 1; }
+
+/* tailles bento */
+.cell--wide { grid-column: span 4; }
+.cell--full { grid-column: span 6; }
+.cell--tall { grid-row: span 2; }
+
+.cell h2,
+.cell h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.cell p {
+  color: var(--ink-dim);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.cell strong { color: var(--ink); }
+.cell a { color: var(--ink); }
+
+/* gros chiffre / donnée clé */
+.cell .stat {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.cell .stat-sub {
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+}
+
+/* texte de corps mis en avant dans une cellule large */
+.cell .lead {
+  color: var(--ink);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.65;
+}
+
+/* listes de compétences / projets */
+.cell ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.cell ul li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.78rem;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.03);
+}
+.cell ul.stack li { border-style: dashed; }
+
+/* liste verticale (missions, faits) */
+.cell ol.facts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  counter-reset: f;
+}
+.cell ol.facts li {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: 0.8rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  font-size: 0.92rem;
+  counter-increment: f;
+}
+.cell ol.facts li::before {
+  content: counter(f, decimal-leading-zero);
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding-top: 0.28rem;
+}
+
+/* ---------- navigation entre postes ---------- */
+.page-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.page-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.3rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.page-nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: translateY(-3px);
+}
+.page-nav .dir {
+  color: var(--ink-dim);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.page-nav .name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.page-nav a.is-next { text-align: right; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cell,
+  .cell--wide,
+  .cell--full { grid-column: span 2; }
+  .cell--tall { grid-row: auto; }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+  .cell,
+  .cell--wide,
+  .cell--full { grid-column: span 1; }
+  .page-nav { grid-template-columns: 1fr; }
+  .page-nav a.is-next { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .page-nav a:hover { transform: none; }
+}

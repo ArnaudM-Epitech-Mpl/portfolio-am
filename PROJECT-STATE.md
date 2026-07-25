@@ -138,15 +138,73 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 - ⚠️ La version en ligne **date d'avant** les pages dédiées, le curseur,
   locomotive-scroll et le glassmorphisme.
 
-## 6. Architecture avant migration Nuxt
+## 6. Emplacement et dépôt
 
-- Vite multi-pages : `index.html`, `epitech.html`, `sween.html`, `troa.html`
-  (entrées dans `vite.config.js`).
-- `src/main.js` — scène Three.js (accueil uniquement, ~520 kB / 133 kB gzip).
-- `src/transitions.js` — loader, curseur, header glass.
-- `src/scroll.js` — locomotive-scroll v5.
-- `src/page.js` — spotlight des cellules bento.
-- `src/i18n.js` — dictionnaire + application au DOM.
-- `src/style.css` — styles globaux · `src/bento.css` — pages dédiées.
-- Pages dédiées : ~14 kB gzip (ne chargent pas Three.js).
-- **Pas de dépôt git** → aucune suppression sans validation.
+- **Le projet vit dans `/Users/arnaudmichel/Documents/Projets perso/portfolio-am`**
+  (déplacé le 25 juillet 2026 depuis `.../portefolio`, qui ne conserve que
+  `.claude/` pour l'outillage local).
+- Dépôt git à la racine de `portfolio-am`, branche `main`.
+- Remote : `https://github.com/ArnaudM-Epitech-Mpl/portfolio-am.git`
+  (**jamais poussé à ce jour** — à faire par Arnaud ou sur sa demande explicite).
+- Commit filet de sécurité `81f29c4` = état vanilla complet et fonctionnel.
+  **En cas de doute pendant la migration, tout est récupérable depuis ce commit.**
+
+## 7. Migration Nuxt — état au 25 juillet 2026
+
+### Décisions prises par Arnaud
+- **Vue 3 + Nuxt 4** (`nuxt ^4.2`, `vue ^3.5`).
+- **i18n : `@nuxtjs/i18n` v10 avec URLs préfixées** → FR sur `/`, EN sur `/en/`,
+  avec `hreflang`. C'est un changement d'URLs assumé (meilleur SEO), à répercuter
+  sur Vercel.
+- Ancienne version : **remplacée** après commit git de sauvegarde (fait).
+
+### ✅ Fait
+- `git init` + commit `81f29c4` (filet de sécurité vanilla).
+- Déplacement dans `portfolio-am` avec le `.git` du repo GitHub existant.
+- `package.json` réécrit pour Nuxt (scripts `nuxt dev/build/generate/preview`).
+- Dépendances installées : nuxt, vue, @nuxtjs/i18n, three, locomotive-scroll.
+- **`i18n/locales/fr.json` + `en.json`** générés **programmatiquement** depuis
+  `src/i18n.js` — 69 clés chacun, **parité vérifiée**. Zéro transcription
+  manuelle, donc zéro risque d'invention.
+- **`app/utils/scene.js`** : scène Three.js portée. Les scènes 3D sont
+  **inchangées** ; seul le câblage DOM a été paramétré :
+  - `export function createScene(canvas)` au lieu d'un `querySelector('#webgl')` ;
+  - `setSober(on)` exposé au lieu d'un listener sur `#sobriety` ;
+  - `destroy()` ajouté (annule le RAF, retire les listeners, libère géométries /
+    matériaux / textures / renderer) — **indispensable en SPA**, sinon chaque
+    retour à l'accueil fuirait un contexte WebGL.
+  - Validé : compile via esbuild, API conforme.
+- CSS copié dans `app/assets/css/main.css` et `bento.css`.
+
+### ⏳ Reste à faire
+1. `nuxt.config.ts` : modules `@nuxtjs/i18n`, CSS globaux, config i18n
+   (`defaultLocale: 'fr'`, `strategy: 'prefix_except_default'`, fichiers de
+   locales, `detectBrowserLanguage` avec cookie).
+2. `app/app.vue` : layout global (loader, curseur, header, `<NuxtPage />`).
+3. Composants à porter depuis `src/transitions.js` : `AppLoader.vue`
+   (1250 ms, **au chargement de page uniquement**), `CustomCursor.vue`
+   (anneau + easing + grossissement au hover), `SiteHeader.vue`
+   (glass au scroll + switch de langue + bouton sobriété).
+4. `app/plugins/locomotive.client.js` : locomotive-scroll v5
+   (⚠️ **ne pas repasser en v4** : elle hijack le scroll et casserait la caméra
+   qui lit `window.scrollY`). Penser à `scroll.destroy()` + re-init sur
+   changement de route.
+5. Pages : `app/pages/index.vue` (+ `ThreeScene.client.vue`),
+   `epitech.vue`, `sween.vue`, `troa.vue` (bento).
+   Contenu à reprendre **littéralement** depuis `index.html`, `epitech.html`,
+   `sween.html`, `troa.html` (encore présents à la racine).
+6. Reveals au scroll : la classe `.is-inview` de locomotive + styles `.reveal`
+   et `.cell` déjà présents dans le CSS.
+7. Vérifier dans le navigateur, puis **supprimer** `index.html`, `epitech.html`,
+   `sween.html`, `troa.html`, `src/`, `vite.config.js`.
+8. Redéployer sur Vercel (le lien `.vercel` a été déplacé, le projet reste
+   `am-engineering/portefolio`). Nuxt nécessite un preset Vercel — vérifier
+   que le build passe (`nuxt build` produit `.output/`).
+
+### ⚠️ Corrections copywriting encore en attente (cf. §4)
+- FR `kicker` « Portfolio — prototype » → « Portfolio — 2026 » : **non appliqué**
+  (la chaîne existait dans les deux langues, l'édition ciblée reste à faire —
+  maintenant simple, les langues sont dans deux fichiers JSON séparés).
+- Toutes les corrections de langue EN du tableau §4 : **non appliquées**.
+- Réécritures de fond : **bloquées** en attente des chiffres d'Arnaud
+  (questions §1 et §4).
