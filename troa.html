@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TROA — Arnaud Michel</title>
+  <meta name="description" content="Développeur créatif chez TROA, agence digitale primée à Montpellier — expériences web sur mesure et éco-conçues." />
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/src/bento.css" />
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <span class="loader-logo">AM<span class="brand-dot">.</span></span>
+      <span class="loader-bar"><span class="loader-bar-fill"></span></span>
+    </div>
+  </div>
+
+  <div id="cursor" class="cursor" aria-hidden="true"><span class="cursor-ring"></span></div>
+
+  <header class="site-header">
+    <a class="brand" href="/">AM<span class="brand-dot">.</span></a>
+    <nav>
+      <a href="/epitech.html">Epitech</a>
+      <a href="/sween.html">Sween</a>
+      <a href="/troa.html" aria-current="page">TROA</a>
+      <a href="/#contact" data-i18n="navContact">Contact</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back-link" href="/"><span aria-hidden="true">←</span> <span data-i18n="backHome">Retour au parcours</span></a>
+
+    <div class="page-head">
+      <span class="eyebrow" data-i18n="troaDates">Alternance — jusqu'à sept. 2022</span>
+      <h1>TROA</h1>
+      <p class="page-role" data-i18n="troaRole">Développeur créatif — agence digitale, Montpellier</p>
+    </div>
+
+    <div class="bento">
+      <article class="cell cell--wide" data-scroll>
+        <h2 data-i18n="pgMissionTitle">La mission</h2>
+        <p class="lead" data-i18n="troPageMission">
+          Construire des expériences web sur mesure pour des marques exigeantes&nbsp;:
+          direction artistique forte, animation soignée, et une contrainte assumée —
+          l'éco-conception.
+        </p>
+      </article>
+
+      <article class="cell" data-scroll>
+        <h2 data-i18n="pgAwardsTitle">Agence primée</h2>
+        <span class="stat">FWA</span>
+        <span class="stat-sub">Awwwards · Grand Prix Stratégies</span>
+      </article>
+
+      <article class="cell cell--full" data-scroll>
+        <h2 data-i18n="pgProjectsTitle">Réalisations</h2>
+        <p data-i18n="troPageProjectsIntro">
+          J'ai contribué à la plupart des réalisations de l'agence jusqu'en septembre 2022.
+        </p>
+        <ul>
+          <li>Canelés Baillardran</li>
+          <li>Grotte des Demoiselles</li>
+          <li>Opéra de Montpellier</li>
+          <li>Zénith de Montpellier</li>
+          <li>Entav-Inra</li>
+          <li>Mat & Seb</li>
+          <li>Elorell</li>
+          <li>Addictopôle Occitanie</li>
+          <li>Evielab</li>
+          <li>36Velos</li>
+          <li data-i18n="troaTagMore">…et d'autres</li>
+        </ul>
+      </article>
+
+      <article class="cell cell--wide" data-scroll>
+        <h2 data-i18n="pgContextTitle">Le contexte</h2>
+        <p data-i18n="troPageContext">
+          TROA est une agence digitale créative de Montpellier, primée (FWA, Awwwards,
+          Grand Prix Stratégies), qui place la sobriété numérique au cœur de ses
+          créations&nbsp;: limiter les effets inutiles, optimiser les performances,
+          penser à long terme.
+        </p>
+      </article>
+
+      <article class="cell cell--tall" data-scroll>
+        <h2 data-i18n="pgSkillsTitle">Compétences</h2>
+        <ul class="stack">
+          <li data-i18n="troTag1">Développement front créatif</li>
+          <li data-i18n="troTag2">Animation & interaction</li>
+          <li data-i18n="troTag3">Éco-conception web</li>
+          <li data-i18n="troTag4">Intégration de direction artistique</li>
+          <li data-i18n="troTag5">Travail en agence, multi-clients</li>
+        </ul>
+      </article>
+
+      <article class="cell cell--wide" data-scroll>
+        <h2 data-i18n="pgLegacyTitle">Ce que j'en garde</h2>
+        <p data-i18n="troPageLegacy">
+          Le niveau d'exigence d'une agence primée sur le détail — et la conviction
+          qu'une contrainte, ici l'éco-conception, est un moteur créatif plutôt qu'un
+          frein. Ce site en est le prolongement direct.
+        </p>
+      </article>
+    </div>
+
+    <nav class="page-nav" aria-label="Autres postes">
+      <a class="is-prev" href="/sween.html">
+        <span class="dir" data-i18n="pgPrev">Précédent</span>
+        <span class="name">Sween</span>
+      </a>
+      <a class="is-next" href="/epitech.html">
+        <span class="dir" data-i18n="pgNext">Suivant</span>
+        <span class="name">Epitech</span>
+      </a>
+    </nav>
+  </main>
+
+  <script type="module" src="/src/i18n.js"></script>
+  <script type="module" src="/src/scroll.js"></script>
+  <script type="module" src="/src/transitions.js"></script>
+  <script type="module" src="/src/page.js"></script>
+</body>
+</html>
