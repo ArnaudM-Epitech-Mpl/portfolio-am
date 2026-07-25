@@ -136,11 +136,15 @@ modèles 3D canelé/rugby/note/raisin · mention « Prototype — Three.js · Vi
 - Vercel, projet `am-engineering/portefolio`, team `am-engineering`.
 - Production : https://portefolio-nu-six.vercel.app
 - Commande : `npx vercel deploy --prod --yes` (CLI déjà authentifié).
-- ⚠️ La version en ligne **date d'avant** les pages dédiées, le curseur,
-  locomotive-scroll, le glassmorphisme **et la migration Nuxt**.
+- ✅ **La version Nuxt est en ligne** (déploiement du 25 juillet 2026,
+  `dpl_GBTvDM9Cnad7LaaVYGxyssjfEmwV`). Routes `/`, `/en/`, `/epitech`,
+  `/sween`, `/troa` et leurs variantes EN vérifiées en 200, redirections 301
+  depuis les anciennes `.html` vérifiées en production.
 - Le site est désormais **rendu côté serveur** (Nitro), plus un simple dossier
   statique : `nuxt build` produit `.output/`. Alternative si un hébergement
   statique est préféré : `nuxt generate`.
+- Les redirections 301 vivent dans `routeRules` de `nuxt.config.ts`, pas dans
+  un `vercel.json` — Nuxt génère la config Vercel à partir de là.
 
 ## 6. Emplacement et dépôt
 
@@ -219,14 +223,12 @@ de poste tirent le framework Nuxt (**108 kB gzip**) + ~3 kB — contre 14 kB en
 vanilla. **C'est le coût de la SPA, à arbitrer** vu le discours éco-conception.
 
 ### ⏳ Reste à faire
-1. Redéployer sur Vercel (projet `am-engineering/portefolio`). Le build produit
-   `.output/` — vérifier que le preset Vercel est bien détecté, et répercuter
-   le changement d'URLs (`/epitech.html` → `/epitech`, EN sur `/en/`) :
-   **redirections 301 à prévoir**.
-2. Faire valider les **8 clés `meta*`** ajoutées : le FR reprend mot pour mot les
+1. Faire valider les **8 clés `meta*`** ajoutées : le FR reprend mot pour mot les
    `<title>` / `<meta description>` des anciens fichiers HTML, mais **les
    descriptions EN sont des chaînes neuves**, écrites avec la terminologie du
    tableau §4 (« Academic Director », « sustainable web design »). À relire.
+2. **Pousser sur GitHub** : le dépôt n'a toujours jamais été poussé
+   (`ArnaudM-Epitech-Mpl/portfolio-am`) — à faire par Arnaud ou sur sa demande.
 
 ### ⚠️ Corrections copywriting encore en attente (cf. §4)
 - Toutes les corrections de langue EN du tableau §4 : **non appliquées**.
