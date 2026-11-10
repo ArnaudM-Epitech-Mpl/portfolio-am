@@ -14,6 +14,14 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1.0',
+      // logo « AM. » : SVG pour les navigateurs récents, ICO en repli,
+      // PNG plein cadre pour l'écran d'accueil iOS
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+      meta: [{ name: 'theme-color', content: '#050505' }],
     },
   },
 

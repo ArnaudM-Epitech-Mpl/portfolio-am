@@ -4,6 +4,32 @@
 > But : travailler à partir de faits vérifiés plutôt que de mémoire. Toute
 > information absente d'ici doit être demandée à Arnaud, jamais inventée.
 
+## 0. Mise à jour du 10 novembre 2026 — à lire avant le reste
+
+- **Emplacement** : le projet vit maintenant dans
+  `/Users/arnaudmichel/Documents/04-Code/portfolio-am` (le §6 est périmé).
+- **Arnaud a quitté Epitech en août 2026** et cherche un poste de développeur,
+  tech lead ou engineering manager hands-on (CDI ou freelance, Montpellier ou
+  remote). Le portfolio devient un outil de candidature.
+- ⚠️ **Le site en production est donc faux** : il affiche « Direction
+  pédagogique @ Epitech » et « Aujourd'hui » comme poste actuel.
+- **Nouvelle source de vérité pour les faits** :
+  `../candidature-pipeline/profile/master.yaml`. Elle lève la plupart des
+  inconnues du §1 (intitulés exacts, dates au mois, 15 personnes encadrées,
+  170 étudiants, 7 promotions, stack Sween). En cas d'écart avec le §1,
+  `master.yaml` l'emporte.
+- **Écarts à faire arbitrer par Arnaud** (site actuel → `master.yaml`) :
+  Sween « 2022 — 2025 » → mars 2023 à févr. 2025 · TROA « Développeur
+  créatif », alternance → « Développeur Front-end », oct. 2020 à sept. 2022 ·
+  Epitech « Direction pédagogique » → « Responsable Tous Programmes » puis
+  « Responsable Pédagogique Régional » · LinkedIn `arnaud-michel11` →
+  `arnaudmichel11`.
+- **Concept d'interface « Relevé »** : prototype autonome dans
+  `concepts/releve/index.html` (un seul fichier, aucune dépendance), servi par
+  la config `portfolio-concept-releve` de `04-Code/.claude/launch.json`.
+  Une source de faits, trois lectures (`?profil=dev|lead|em`, `&lang=en`).
+  **Non validé par Arnaud, non porté dans Nuxt, non déployé.**
+
 ## 1. Faits sur le parcours (validés par Arnaud)
 
 | Expérience | Période | Intitulé utilisé | Statut du fait |
