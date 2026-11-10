@@ -1,7 +1,7 @@
 <template>
   <div v-if="present" class="loader" :class="{ 'is-done': done }">
     <div class="loader-inner">
-      <span class="loader-logo">AM<span class="brand-dot">.</span></span>
+      <span class="loader-logo">AM<span class="dot-dim">.</span></span>
       <span class="loader-bar"><span class="loader-bar-fill"></span></span>
     </div>
   </div>
@@ -12,7 +12,7 @@
 // interne : le composant vit dans app.vue, qui n'est monté qu'une fois.
 const done = ref(false)
 const present = ref(true)
-let timers = []
+const timers = []
 
 onMounted(() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches

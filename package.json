@@ -12,9 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/i18n": "^10.5.0",
-    "locomotive-scroll": "^5.0.1",
     "nuxt": "^4.2.0",
-    "three": "^0.166.0",
     "vue": "^3.5.0"
   }
 }

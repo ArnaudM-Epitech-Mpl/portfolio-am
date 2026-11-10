@@ -18,17 +18,37 @@
   inconnues du §1 (intitulés exacts, dates au mois, 15 personnes encadrées,
   170 étudiants, 7 promotions, stack Sween). En cas d'écart avec le §1,
   `master.yaml` l'emporte.
-- **Écarts à faire arbitrer par Arnaud** (site actuel → `master.yaml`) :
+- **Écarts à faire confirmer par Arnaud** (ancien site → `master.yaml` ; la
+  version « Relevé » applique déjà les valeurs de `master.yaml`) :
   Sween « 2022 — 2025 » → mars 2023 à févr. 2025 · TROA « Développeur
   créatif », alternance → « Développeur Front-end », oct. 2020 à sept. 2022 ·
   Epitech « Direction pédagogique » → « Responsable Tous Programmes » puis
   « Responsable Pédagogique Régional » · LinkedIn `arnaud-michel11` →
   `arnaudmichel11`.
-- **Concept d'interface « Relevé »** : prototype autonome dans
-  `concepts/releve/index.html` (un seul fichier, aucune dépendance), servi par
-  la config `portfolio-concept-releve` de `04-Code/.claude/launch.json`.
-  Une source de faits, trois lectures (`?profil=dev|lead|em`, `&lang=en`).
-  **Non validé par Arnaud, non porté dans Nuxt, non déployé.**
+- **L'interface « Relevé » est devenue le site** (demande d'Arnaud du
+  10 novembre 2026, au soir). Une source de faits, trois lectures.
+  - Le site est maintenant **une seule page** (`app/pages/index.vue`). La
+    lecture vit dans l'URL (`?profil=dev|lead|em`), la langue dans le chemin
+    (`/` en français, `/en` en anglais) — et non plus `&lang=en` comme dans le
+    prototype.
+  - **Faits** : `app/data/profile.js`, recopié de `master.yaml`. C'est le seul
+    endroit où modifier un intitulé, une date ou un chiffre. Les libellés
+    d'interface sont dans `i18n/locales/`.
+  - **Retirés** : les pages de poste `/epitech`, `/sween`, `/troa` (redirigées
+    en 302 vers `/#parcours`), la scène Three.js, locomotive-scroll, et les
+    dépendances `three` et `locomotive-scroll`. Tout reste récupérable au
+    commit `526fd27`. Les §2 (scènes 3D), §3, §4 et §7 décrivent donc
+    l'**ancienne** version ; du §2 ne s'appliquent plus que la palette, la
+    typographie, le verre dépoli, le curseur, le loader et la liste des refus.
+  - Le pied de page affiche le poids réel de la page, mesuré dans le
+    navigateur : environ 125 ko gzip avec Nuxt (le prototype autonome en
+    faisait 20).
+  - Le prototype d'origine reste dans `concepts/releve/index.html` pour
+    référence ; il n'est plus la version à jour et duplique les faits.
+  - **Non déployé** : la production sert toujours l'ancienne version, fausse.
+  - Configs de `04-Code/.claude/launch.json` : `portfolio-dev` (port 5174),
+    `portfolio-preview` (build de production, port 5175),
+    `portfolio-concept-releve` (prototype, port 4310).
 
 ## 1. Faits sur le parcours (validés par Arnaud)
 

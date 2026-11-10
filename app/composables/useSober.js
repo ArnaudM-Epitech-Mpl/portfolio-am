@@ -1,3 +1,3 @@
-// « Mode sobriété » — coupe le rendu 3D (clin d'œil à l'éco-conception de TROA).
-// Partagé entre le bouton du header et la scène Three.js de l'accueil.
+// « Mode sobriété » — coupe toutes les animations de la page (clin d'œil à
+// l'éco-conception de Troa). `body.sober` est posée par app.vue.
 export const useSober = () => useState('sober', () => false)

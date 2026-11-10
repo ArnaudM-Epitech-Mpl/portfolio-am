@@ -4,11 +4,7 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/i18n'],
 
-  css: [
-    'locomotive-scroll/dist/locomotive-scroll.css',
-    '~/assets/css/main.css',
-    '~/assets/css/bento.css',
-  ],
+  css: ['~/assets/css/main.css'],
 
   app: {
     head: {
@@ -25,13 +21,17 @@ export default defineNuxtConfig({
     },
   },
 
-  // les pages de poste étaient servies en `.html` avant la migration : on garde
-  // les anciennes URLs vivantes (301) plutôt que de les laisser en 404
-  routeRules: {
-    '/epitech.html': { redirect: { to: '/epitech', statusCode: 301 } },
-    '/sween.html': { redirect: { to: '/sween', statusCode: 301 } },
-    '/troa.html': { redirect: { to: '/troa', statusCode: 301 } },
-  },
+  // les pages de poste (`/epitech`, `/sween`, `/troa`, et leurs versions
+  // `.html` d'avant Nuxt) ont été remplacées par la frise de l'accueil : on
+  // garde les anciennes URLs vivantes plutôt que de les laisser en 404.
+  // 302 et non 301 : un 301 resterait en cache si ces pages revenaient.
+  routeRules: Object.fromEntries(
+    ['epitech', 'sween', 'troa'].flatMap((page) => [
+      [`/${page}`, { redirect: { to: '/#parcours', statusCode: 302 } }],
+      [`/${page}.html`, { redirect: { to: '/#parcours', statusCode: 302 } }],
+      [`/en/${page}`, { redirect: { to: '/en#parcours', statusCode: 302 } }],
+    ])
+  ),
 
   // FR sur `/`, EN sur `/en/` — changement d'URLs assumé (SEO), avec hreflang.
   i18n: {
